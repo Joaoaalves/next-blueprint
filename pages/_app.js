@@ -1,7 +1,9 @@
-import "@/styles/globals.css";
-import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
+import '@/styles/globals.css';
+import { CookieConsentProvider } from '@/contexts/CookieConsentContext';
 export default function App({ Component, pageProps }) {
-  return <CookieConsentProvider>
-    <Component {...pageProps} />
-  </CookieConsentProvider>;
+    return (
+        <CookieConsentProvider>
+            <Component {...pageProps} />
+        </CookieConsentProvider>
+    );
 }
