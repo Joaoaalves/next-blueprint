@@ -2,9 +2,14 @@ import axios from 'axios';
 
 const APP_ID = process.env.ANALYTICS_APP_ID;
 const API_URL = process.env.AWS_API_URL;
+const ON_PROD = process.env.ON_PROD
 
 export async function newAction(eventType, details) {
-    'use server';
+    if(ON_PROD === 'false'){
+        console.log('Ignoring new action, if you want to track newActions, set ON_PROD = true on .env.local')
+        console.log(`Action ignored: ${eventType}`)
+        return
+    }
 
     let data = JSON.stringify({
         ApplicationId: APP_ID,
