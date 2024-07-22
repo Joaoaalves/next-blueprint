@@ -17,7 +17,8 @@
         "posthog-js": "^1.148.0",
         "prettier": "^3.3.3",
         "react": "^18",
-        "react-dom": "^18"
+        "react-dom": "^18",
+        "ua-parser-js": "^1.0.38"
     },
     "devDependencies": {
         "eslint": "^8",

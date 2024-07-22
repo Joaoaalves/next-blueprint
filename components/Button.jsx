@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 export default function Button({ text, className, onClick, details }) {
     const handleClick = async () => {
+        onClick();
+
         try {
             const response = await fetch('/api/clientAction', {
                 method: 'POST',
@@ -19,9 +21,6 @@ export default function Button({ text, className, onClick, details }) {
             }
 
             const data = await response.json();
-            console.log(data);
-
-            onClick();
         } catch (error) {
             console.error('Failed to send action:', error);
         }
