@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google';
 const font = Inter({ subsets: ['latin'] });
-import { newAction } from '@/actions/newAction';
+import { newEvent } from '@/actions/newEvent';
 import UAParser from 'ua-parser-js';
 
 import CookieConsent from '@/components/CookieConsent';
@@ -18,7 +18,7 @@ export async function getServerSideProps({ req }) {
     const parser = new UAParser(req.headers['user-agent']);
     const device = parser.getResult().device.type || 'desktop';
 
-    await newAction('pageView', {
+    await newEvent('pageView', {
         page: '/',
         ip: ipAddress,
         device

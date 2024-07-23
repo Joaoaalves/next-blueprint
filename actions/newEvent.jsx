@@ -4,9 +4,9 @@ const APP_ID = process.env.ANALYTICS_APP_ID;
 const API_URL = process.env.AWS_API_URL;
 const ON_PROD = process.env.ON_PROD
 
-export async function newAction(eventType, details) {
+export async function newEvent(eventType, details) {
     if(ON_PROD === 'false'){
-        console.log('Ignoring new action, if you want to track newActions, set ON_PROD = true on .env.local')
+        console.log('Ignoring new action, if you want to track events, set ON_PROD = true on .env.local')
         console.log(`Action ignored: ${eventType}`)
         return
     }
@@ -20,7 +20,7 @@ export async function newAction(eventType, details) {
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `${API_URL}/action`,
+        url: `${API_URL}/event`,
         headers: {
             'Content-Type': 'application/json'
         },

@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         const { eventType, details } = req.body;
 
         if (ON_PROD === 'false') {
-            console.log('Ignoring new action, if you want to track newActions, set ON_PROD = true on .env.local');
+            console.log('Ignoring new action, if you want to track events, set ON_PROD = true on .env.local');
             console.log(`Action ignored: ${eventType}`);
             return res.status(200).json({ message: 'Action ignored in development mode' });
         }
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `${API_URL}/action`,
+            url: `${API_URL}/event`,
             headers: {
                 'Content-Type': 'application/json'
             },

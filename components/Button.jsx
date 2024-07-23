@@ -5,7 +5,7 @@ export default function Button({ text, className, onClick, details }) {
         onClick();
 
         try {
-            const response = await fetch('/api/clientAction', {
+            const response = await fetch('/api/client-event', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
