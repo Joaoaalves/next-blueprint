@@ -1,27 +1,17 @@
 import { Inter } from 'next/font/google';
 const font = Inter({ subsets: ['latin'] });
-import { newEvent } from '@/actions/newEvent';
-import UAParser from 'ua-parser-js';
 
-import CookieConsent from '@/components/CookieConsent';
+import { newEvent } from '@/actions/newEvent';
+import { getClientIp, getClientDevice } from '@/lib/getClientData';
+
 import Button from '@/components/Button';
 
-export async function getServerSideProps({ req }) {
-    const forwarded = req.headers['x-forwarded-for'];
+export async function getServerSideProps({ req, res }) {
 
-    let ipAddress = forwarded
-        ? forwarded.split(/, /)[0]
-        : req.connection.remoteAddress;
-
-    ipAddress = ipAddress.startsWith('::ffff:') ? ipAddress.split('::ffff:')[1] : ipAddress;
-
-    const parser = new UAParser(req.headers['user-agent']);
-    const device = parser.getResult().device.type || 'desktop';
-
-    await newEvent('pageView', {
+    newEvent('pageView', {
         page: '/',
-        ip: ipAddress,
-        device
+        ip: getClientIp(req),
+        device: getClientDevice(req)
     });
 
     return {
@@ -32,12 +22,11 @@ export async function getServerSideProps({ req }) {
 export default function Home() {
     return (
         <main className={`${font.className}`}>
-            <CookieConsent />
-            <Button
-                text="Placeholder Button"
-                onClick={() => console.log('Clickou')}
-                details={{ button: 'placeholder' }}
-            />
+            <Button onClick={() => console.log('Clickou')} details={{
+                route: "/",
+                component: "default-button",
+                message: 'test'
+            }} className={"bg-purple-600 text-white p-4 rounded"}>Register new Event</Button>
         </main>
     );
 }

@@ -1,30 +1,17 @@
-import { useState } from 'react';
+"use server"
 
-export default function Button({ text, className, onClick, details }) {
+import { newEvent } from "@/actions/newEvent";
+import axios from "axios"
+
+export default function Button({ className, onClick, details, children }) {
     const handleClick = async () => {
         onClick();
 
-        try {
-            const response = await fetch('/api/client-event', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    eventType: 'click',
-                    details: details
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-        } catch (error) {
-            console.error('Failed to send action:', error);
-        }
+        axios.post('/api/client-event', {
+            eventType: "click",
+            details
+        })
     };
 
-    return <button className={className} onClick={handleClick}>{text}</button>;
+    return <button className={className} onClick={handleClick}>{children}</button>;
 }
