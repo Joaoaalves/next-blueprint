@@ -10,14 +10,15 @@ function Error({ statusCode }) {
     )
 }
 
-Error.getInitialProps = ({ res, err }) => {
+Error.getInitialProps = ({ res, req, err }) => {
     const statusCode = res ? res.statusCode : err ? err.statusCode : 404
 
     newEvent('clientError', {
         statusCode: String(statusCode),
-        path: err.page,
+        path: req.url,
         error: err.message
     })
+
     return { statusCode }
 }
 
