@@ -16,7 +16,7 @@ Error.getInitialProps = ({ res, req, err }) => {
     newEvent('clientError', {
         statusCode: String(statusCode),
         path: req.url,
-        error: err.message
+        message: err.message
     })
 
     return { statusCode }

@@ -8,9 +8,10 @@ export default async function handler(req, res) {
             newEvent(eventType, details)
             res.status(200).json({});
         } catch (error) {
-            newEvent('error', {
-                message: error.message,
-                route: "/api/client-event"
+            newEvent('apiError', {
+                statusCode: 500,
+                path: "/api/client-event",
+                message: error.message
             })
             res.status(500).json({ error: 'An error occurred while processing the request' });
         }

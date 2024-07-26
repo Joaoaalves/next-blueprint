@@ -17,8 +17,9 @@ export default async function handler(req, res) {
     } catch (error) {
 
         await newEvent('apiError', {
-            message: error.message,
-            route: req.url
+            statusCode: 500,
+            path: "/api/client-event",
+            message: error.message
         })
 
         res.status(500).json({ error: 'An error occurred while processing the request' });
